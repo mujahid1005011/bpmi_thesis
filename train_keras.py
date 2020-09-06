@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler, LabelEncoder, OrdinalEncoder, OneHotEncoder
 
 # Importing the dataset
-#dataset = np.genfromtxt("housing.csv", delimiter=None)
 
 dataset = pd.read_excel('BPMI_Thesis_train_data.xlsx').to_numpy()
 X = np.concatenate([dataset[:, 1:3], dataset[:, 4:5]], axis=-1)
@@ -23,7 +22,7 @@ test_dataset = pd.read_excel('BPMI_Thesis_test_data.xlsx').to_numpy()
 X_test = np.concatenate([test_dataset[:, 1:3], test_dataset[:, 4:5]], axis=-1)
 y_test = test_dataset[:, 5]
 
-#print(y)
+# print(y)
 
 
 try:
@@ -52,11 +51,11 @@ try:
     model.compile(optimizer='adam', loss='mean_squared_error')
 
     # Fitting the ANN to the Training set
-    #print(X_train)
+    # print(X_train)
     model.fit(X_train, y_train, batch_size=10, epochs=100)
 
     y_pred = model.predict(X_test)
-    #print(y_pred)
+    # print(y_pred)
     slots = {
         100: 0,
         90: 0,
@@ -71,9 +70,11 @@ try:
     }
     index = 0
     import math
+
     for y in y_test:
         y_p = y_pred[index][0]
         diff = 0 if y == 0 else (abs(y - y_p) * 100 / y)
+
         index += 1
         included = False
         for x in slots.keys():
@@ -85,6 +86,7 @@ try:
             slots[10] += 1
 
     import copy
+
     tests_len = len(y_test)
     slots_per = copy.deepcopy(slots)
     for x in slots.keys():
